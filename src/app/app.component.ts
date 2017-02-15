@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
+import { NavbarComponent } from './nav/navbar.component';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: '<app-nav-bar></app-nav-bar><div id="content"><router-outlet></router-outlet></div>'
 })
 export class AppComponent {
-  title = 'app works!';
+  title: String = 'app works!';
 }
