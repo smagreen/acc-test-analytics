@@ -1,3 +1,4 @@
+import './rxjs-extensions';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -9,9 +10,12 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './nav/navbar.component';
 import { AboutComponent } from './about/about.component';
 import { AttributeListComponent } from './attribute/attribute-list/attribute-list.component';
-import { CapabilityListComponent } from './capability/index';
+import { CapabilityListComponent, CapabilityListResolver } from './capability/index';
 import { ComponentListComponent } from './component/component-list/component-list.component';
 import { Error404Component } from './errors/404.component';
+
+import { TestrailSectionListService } from './testrail/testrail-section-list.service';
+import { ComponentService } from './component/component-list/component.service';
 
 import { appRoutes } from './app.routes';
 
@@ -32,7 +36,11 @@ import { appRoutes } from './app.routes';
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    TestrailSectionListService,
+    ComponentService,
+    CapabilityListResolver
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
