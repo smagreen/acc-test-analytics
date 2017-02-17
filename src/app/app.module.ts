@@ -14,7 +14,6 @@ import { CapabilityListComponent, CapabilityListResolver } from './capability/in
 import { ComponentListComponent } from './component/component-list/component-list.component';
 import { Error404Component } from './errors/404.component';
 
-import { TestrailSectionListService } from './testrail/testrail-section-list.service';
 import { ComponentService } from './component/component-list/component.service';
 
 import { appRoutes } from './app.routes';
@@ -37,7 +36,6 @@ import { appRoutes } from './app.routes';
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
-    TestrailSectionListService,
     ComponentService,
     CapabilityListResolver
   ],
