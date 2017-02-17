@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { IComponent } from '../../shared/index';
-import { ComponentService } from './component.service';
+import { ComponentService } from '../component.service';
 
 @Component({
   selector: 'app-component-list',
@@ -26,4 +26,13 @@ export class ComponentListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
+  editComponent(comp: IEditableComponent) {
+    comp.editEnabled = !comp.editEnabled;
+    console.log('Component edit clicked: ', comp.name);
+  }
+}
+
+export interface IEditableComponent extends IComponent {
+  editEnabled: Boolean;
 }

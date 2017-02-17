@@ -8,10 +8,37 @@
     </div>
 </div>
 <div class="container">
-    <div class="row">
-        <div class="col-12">...</div>
+    <div class="row" *ngIf="!dataReady">
+        <div class="col-12">
+            <div >Loading Attributes ...</div>
+        </div>
     </div>
-</div>
+      <div *ngIf="attributes.length > 0" class="row">
+        <table class="table table-hover table-bordered">
+            <thead class="thead-inverse">
+                <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let attr of attributes">
+                <tr>
+                <th scope="row">{{attr.id}}</th>
+                <td>{{attr.name}}</td>
+                <td>{{attr.description}}</td>
+                <td><span><a style="cursor: pointer" (click)="editAttribute(attr)">Edit</a></span></td>
+                </tr>
+                <tr *ngIf="attr.editEnabled">
+                    <th></th>
+                    <td colspan="2">
+                    </td>
+                    <td><button class="btn btn-primary btn-small">Close</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 
 

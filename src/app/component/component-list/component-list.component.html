@@ -8,15 +8,36 @@
     </div>
 </div>
 <div class="container">
-    <div class="row">
+    <div class="row" *ngIf="!dataReady">
         <div class="col-12">
-            <div *ngIf="!dataReady">Loading Components ...</div>
-            <div *ngIf="components.length > 0">
-                <ul *ngFor="let component of components">
-                    <li>{{component.name}}</li>
-                </ul>
-            </div>
+            <div >Loading Components ...</div>
         </div>
+    </div>
+      <div *ngIf="components.length > 0" class="row">
+        <table class="table table-hover table-bordered">
+            <thead class="thead-inverse">
+                <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let component of components">
+                <tr>
+                <th scope="row">{{component.id}}</th>
+                <td>{{component.name}}</td>
+                <td>{{component.description}}</td>
+                <td><span><a style="cursor: pointer" (click)="editComponent(component)">Edit</a></span></td>
+                </tr>
+                <tr *ngIf="component.editEnabled">
+                    <th></th>
+                    <td colspan="2">
+                    </td>
+                    <td><button class="btn btn-primary btn-small">Close</button></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 

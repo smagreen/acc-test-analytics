@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { IComponent } from '../../shared/index';
+import { IComponent } from '../shared/index';
 
 const COMPONENTS: IComponent[] = [
     { id: '1', name: 'Component 1', description: 'Description 1'},
@@ -22,7 +22,7 @@ export class ComponentService {
         setTimeout(() => {
             subject.next(COMPONENTS);
             subject.complete();
-        }, 5000);
+        }, 1000);
         return subject;
     }
 }
