@@ -8,39 +8,26 @@
     </div>
 </div>
 <div class="container">
-    <div class="row">
-        <div class="col-12">...</div>
+    <div class="row" *ngIf="!dataReady">
+        <div class="col-12">
+            <div >Loading Capabilities ...</div>
+        </div>
     </div>
-    <div class="row">
-        <table class="table table-sm table-hover">
-            <thead>
+      <div *ngIf="table" class="row">
+        <table class="table table-hover table-bordered">
+            <thead class="thead-inverse">
                 <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
+                <th></th>
+                <th *ngFor="let attr of table.attributes">{{attr.name}}</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody *ngFor="let comp of table.components">
                 <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                </tr>
-                <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td class="table-danger">@fat</td>
-                </tr>
-                <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
+                <th scope="row">{{comp.name}}</th>
+                <td *ngFor="let cap of table.capabilities"></td>
                 </tr>
             </tbody>
         </table>
     </div>
-</div>
+
 

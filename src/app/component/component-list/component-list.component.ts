@@ -11,7 +11,7 @@ import { ComponentService } from '../component.service';
 export class ComponentListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   components: IComponent[]= [];
-  dataReady: Boolean = false;
+  dataReady = false;
 
   constructor(private service: ComponentService) { }
 

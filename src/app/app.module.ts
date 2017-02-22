@@ -12,6 +12,7 @@ import { AboutComponent } from './about/about.component';
 import { AttributeListComponent } from './attribute/attribute-list/attribute-list.component';
 import { AttributeService } from './attribute/attribute.service';
 import { CapabilityListComponent, CapabilityListResolver } from './capability/index';
+import { CapabilityService } from './capability/capability.service';
 import { ComponentListComponent } from './component/component-list/component-list.component';
 import { Error404Component } from './errors/404.component';
 
@@ -39,6 +40,7 @@ import { appRoutes } from './app.routes';
   providers: [
     ComponentService,
     AttributeService,
+    CapabilityService,
     CapabilityListResolver
   ],
   bootstrap: [AppComponent]
