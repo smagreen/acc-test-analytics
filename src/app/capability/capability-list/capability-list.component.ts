@@ -9,27 +9,51 @@ import { CapabilityService } from '../capability.service';
   styleUrls: ['./capability-list.component.css']
 })
 export class CapabilityListComponent implements OnInit {
-  table: CapabilityTable;
+  capabilityData: CapabilityTable;
+  matrix: Intersection[];
   dataReady: Boolean  = false;
 
   constructor(private capabilityService: CapabilityService ) { }
 
   ngOnInit() {
-   this.capabilityService.getCapabilityTableObs().subscribe(
-     c => this.table = c,
+   this.capabilityService.getCapabilityTable().subscribe(
+     c => this.capabilityData = c,
      e => console.log('error:', e),
-     () => { this.dataReady = true; this.resolveTableIds();}
+     () => {
+        this.matrix = this.buildMatrix(this.capabilityData);
+        console.log(this.matrix);
+        this.dataReady = true;
+     }
    );
   }
 
-  resolveTableIds() {
-    const x = this.sumCapabilitiesAtIntersection('6', '2');
-    console.log('total: ', x);
+  buildMatrix(capabilityData: CapabilityTable): Intersection[] {
+    const table: Intersection[] = [];
+
+    capabilityData.components.forEach((c) => {
+      const current = new Intersection(c.name);
+      table.push(current);
+      capabilityData.attributes.forEach((a) => {
+          const numC = this.sumCapabilitiesAtIntersection(c.id, a.id);
+          current.attributes.push({name: a.name, count: numC } );
+      });
+    });
+
+    return table;
   }
 
   private sumCapabilitiesAtIntersection(componentId: string, attributeId: string ) {
-    return this.table.capabilities.filter(c => {
+    return this.capabilityData.capabilities.filter(c => {
       return c.componentId === componentId && c.attributeId === attributeId;
     }).length;
+  }
+}
+
+class Intersection {
+  component: string;
+  attributes: {name: string, count: number}[] ;
+  constructor(componentName: string) {
+    this.component = componentName;
+    this.attributes = [];
   }
 }

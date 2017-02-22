@@ -13,18 +13,18 @@
             <div >Loading Capabilities ...</div>
         </div>
     </div>
-      <div *ngIf="table" class="row">
-        <table class="table table-hover table-bordered">
+      <div *ngIf="matrix" class="row">
+        <table class="table table-hover table-bordered text-center">
             <thead class="thead-inverse">
                 <tr>
                 <th></th>
-                <th *ngFor="let attr of table.attributes">{{attr.name}}</th>
+                <th *ngFor="let attr of capabilityData.attributes">{{attr.name}}</th>
                 </tr>
             </thead>
-            <tbody *ngFor="let comp of table.components">
+            <tbody *ngFor="let comp of matrix">
                 <tr>
-                <th scope="row">{{comp.name}}</th>
-                <td *ngFor="let cap of table.capabilities"></td>
+                <th scope="row">{{comp.component}}</th>
+                <td *ngFor="let caps of comp.attributes">{{ caps.count === 0 ? ' ' : caps.count }}</td>
                 </tr>
             </tbody>
         </table>
