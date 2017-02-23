@@ -1,33 +1,46 @@
-<div class="jumbotron" style="margin-top: -15px;">
+<!--<div class="jumbotron" style="margin-top: -15px;">
     <div class="container">
-        <h2>Capability List ... </h2>
+        <h2>Capabilities</h2>
         <div>
             Capabilities are the verbs of your project. They describe the abilities of a component required to satisfy an attribute of a system.
              In an example of a e-commerce website, which would have an attribute "Secure" and a component "Shopping Cart", might have a capability: <br> "Process monetary transactions using HTTPS".
         </div>
     </div>
-</div>
+</div>-->
 <div class="container">
+    <h2>Capabilites by Attribute and Component</h2>
     <div class="row" *ngIf="!dataReady">
         <div class="col-12">
             <div >Loading Capabilities ...</div>
         </div>
     </div>
-      <div *ngIf="matrix" class="row">
+    <div *ngIf="matrix" class="row">
         <table class="table table-hover table-bordered text-center">
             <thead class="thead-inverse">
                 <tr>
                 <th></th>
-                <th *ngFor="let attr of capabilityData.attributes">{{attr.name}}</th>
+                <th *ngFor="let attr of matrix.attributes">{{attr.name}}</th>
                 </tr>
             </thead>
-            <tbody *ngFor="let comp of matrix">
+            <tbody *ngFor="let comp of matrix.components let ri = index">
                 <tr>
-                <th scope="row">{{comp.component}}</th>
-                <td *ngFor="let caps of comp.attributes">{{ caps.count === 0 ? ' ' : caps.count }}</td>
+                <th scope="row">{{comp.name}}</th>
+                <td *ngFor="let attr of matrix.attributes let ci = index" (click)="selectIntersection(attr, comp)" style="cursor: pointer">
+                    <span *ngIf="convenience[ri][ci] > 0">{{ convenience[ri][ci] }} </span>
+                </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+    <h3 *ngIf="intersectionDescription">{{ intersectionDescription }}</h3>
+    
+    <div *ngIf="intersectionDescription && !selectedElement" class="alert alert-info" role="alert">
+        <strong>{{intersectionDescription}}</strong> has no recorded capabilities.
+    </div>
+    
+    <div class="row"*ngIf="selectedElement">
+        <br>
+        <app-capability-display [matrixElement]="selectedElement"></app-capability-display>
     </div>
 
 

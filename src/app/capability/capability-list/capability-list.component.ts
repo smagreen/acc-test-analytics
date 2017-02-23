@@ -1,59 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { CapabilityTable } from '../../shared/capability-table.model';
+import { IComponent, IAttribute, MatrixElement, CapabilityMatrix } from '../../model/capability.model';
 import { CapabilityService } from '../capability.service';
 
 @Component({
   selector: 'app-capability-list',
-  templateUrl: './capability-list.component.html',
-  styleUrls: ['./capability-list.component.css']
+  templateUrl: './capability-list.component.html'
 })
 export class CapabilityListComponent implements OnInit {
-  capabilityData: CapabilityTable;
-  matrix: Intersection[];
+  matrix: CapabilityMatrix;
   dataReady: Boolean  = false;
+  selectedElement: MatrixElement;
+  intersectionDescription: string;
+  convenience: number[][];
 
   constructor(private capabilityService: CapabilityService ) { }
 
   ngOnInit() {
-   this.capabilityService.getCapabilityTable().subscribe(
-     c => this.capabilityData = c,
+   this.capabilityService.getCapabilityData().subscribe(
+     c => this.matrix = c,
      e => console.log('error:', e),
      () => {
-        this.matrix = this.buildMatrix(this.capabilityData);
         console.log(this.matrix);
+        this.buildConvenienceArray();
         this.dataReady = true;
      }
    );
   }
 
-  buildMatrix(capabilityData: CapabilityTable): Intersection[] {
-    const table: Intersection[] = [];
-
-    capabilityData.components.forEach((c) => {
-      const current = new Intersection(c.name);
-      table.push(current);
-      capabilityData.attributes.forEach((a) => {
-          const numC = this.sumCapabilitiesAtIntersection(c.id, a.id);
-          current.attributes.push({name: a.name, count: numC } );
-      });
-    });
-
-    return table;
+  private buildConvenienceArray() {
+      this.convenience = new Array(this.matrix.components.length);
+      for (let row = 0; row < this.matrix.components.length; row++)  {
+        this.convenience[row] = new Array(this.matrix.components.length);
+        for (let col = 0; col < this.matrix.attributes.length; col++) {
+          const res = this.getCapabilitiesByAttrAndComp(this.matrix.attributes[col].id, this.matrix.components[row].id);
+          this.convenience[row][col] = (res && res.capabilities.length > 0) ? res.capabilities.length : 0;
+        }
+      }
   }
 
-  private sumCapabilitiesAtIntersection(componentId: string, attributeId: string ) {
-    return this.capabilityData.capabilities.filter(c => {
-      return c.componentId === componentId && c.attributeId === attributeId;
-    }).length;
+  private getCapabilitiesByAttrAndComp(attributeId: string, componentId: string) {
+    return this.matrix.elements.find(e => (e.attribute.id === attributeId && e.component.id === componentId));
   }
-}
 
-class Intersection {
-  component: string;
-  attributes: {name: string, count: number}[] ;
-  constructor(componentName: string) {
-    this.component = componentName;
-    this.attributes = [];
-  }
+  selectIntersection(attribute: IAttribute, component: IComponent) {
+    this.intersectionDescription = component.name + ' is ' + attribute.name;
+    this.selectedElement = this.getCapabilitiesByAttrAndComp(attribute.id, component.id);
+ }
 }

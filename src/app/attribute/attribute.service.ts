@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { IAttribute } from '../shared/index';
+import { IAttribute } from '../model/capability.model';
 
 const ATTRIBUTES: IAttribute[] = [
     { id: '1', name: 'Attribute 1', description: 'Description 1'},
