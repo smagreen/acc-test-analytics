@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { IComponent } from '../../shared/index';
+import { IComponent } from '../../model/capability.model';
 import { ComponentService } from '../component.service';
 
 @Component({
