@@ -29,7 +29,6 @@ export class ComponentListComponent implements OnInit, OnDestroy {
 
   editComponent(comp: IEditableComponent) {
     comp.editEnabled = !comp.editEnabled;
-    console.log('Component edit clicked: ', comp.name);
   }
 }
 

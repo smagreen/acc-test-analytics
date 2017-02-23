@@ -8,6 +8,6 @@ export class CapabilityCardComponent implements OnChanges {
     @Input() capability: any;
 
     ngOnChanges() {
-        console.log('CapabilityCardComponent onChange: ', this.capability);
+        // console.log('CapabilityCardComponent onChange: ', this.capability);
     }
 }

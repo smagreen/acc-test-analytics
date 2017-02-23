@@ -11,6 +11,6 @@ export class CapabilityDisplayComponent implements OnChanges {
     @Input() matrixElement: MatrixElement;
 
     ngOnChanges() {
-        console.log('ngOnChanges CapabilityDisplayComponent', this.matrixElement);
+        // console.log('ngOnChanges CapabilityDisplayComponent', this.matrixElement);
     }
 }

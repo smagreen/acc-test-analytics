@@ -29,7 +29,6 @@ dataReady: Boolean  = false;
 
   editAttribute(attr: IEditableAttribute) {
     attr.editEnabled = !attr.editEnabled;
-    console.log('Attribute edit clicked: ', attr.id);
   }
 }
 

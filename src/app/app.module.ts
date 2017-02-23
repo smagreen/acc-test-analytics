@@ -11,7 +11,11 @@ import { NavbarComponent } from './nav/navbar.component';
 import { AboutComponent } from './about/about.component';
 import { AttributeListComponent } from './attribute/attribute-list/attribute-list.component';
 import { AttributeService } from './attribute/attribute.service';
-import { CapabilityListComponent, CapabilityDisplayComponent , CapabilityListResolver, CapabilityCardComponent } from './capability/index';
+import { CapabilityListComponent,
+         CapabilityDetailsComponent,
+         CapabilityDisplayComponent,
+         CapabilityCardComponent,
+         CapabilityDetailsResolver } from './capability/index';
 import { CapabilityService } from './capability/capability.service';
 import { ComponentListComponent } from './component/component-list/component-list.component';
 import { Error404Component } from './errors/404.component';
@@ -29,6 +33,7 @@ import { appRoutes } from './app.routes';
     CapabilityListComponent,
     CapabilityDisplayComponent,
     CapabilityCardComponent,
+    CapabilityDetailsComponent,
     ComponentListComponent,
     Error404Component
   ],
@@ -43,7 +48,7 @@ import { appRoutes } from './app.routes';
     ComponentService,
     AttributeService,
     CapabilityService,
-    CapabilityListResolver
+    CapabilityDetailsResolver
   ],
   bootstrap: [AppComponent]
 })

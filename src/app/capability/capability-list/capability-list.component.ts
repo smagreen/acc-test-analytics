@@ -21,7 +21,6 @@ export class CapabilityListComponent implements OnInit {
      c => this.matrix = c,
      e => console.log('error:', e),
      () => {
-        console.log(this.matrix);
         this.buildConvenienceArray();
         this.dataReady = true;
      }
