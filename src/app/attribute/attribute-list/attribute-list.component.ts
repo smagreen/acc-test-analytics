@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { IAttribute } from '../../shared/index';
+import { IAttribute } from '../../model/capability.model';
 import { AttributeService } from '../attribute.service';
 
 @Component({
