@@ -1,0 +1,105 @@
+<form [formGroup]="capabilityForm" (ngSubmit)="save()">
+<div class="container-fluid">
+    <div class="row">
+       
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header"><h5>Capability Details</h5></div>
+                <div class="card-block">
+                    
+                        <div class="form-group row" [ngClass]="{'has-danger' : (capabilityForm.get('capabilityName').touched || capabilityForm.get('capabilityName').dirty)}">
+                            <label for="capabilityName" class="col-sm-3 col-form-label">Capability</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="capabilityName" placeholder="Capability..." formControlName="capabilityName">
+                                <div class="form-control-feedback" *ngIf="(capabilityForm.get('capabilityName').touched && capabilityForm.get('capabilityName').invalid)">Required</div>
+                                <small class="form-text text-muted" *ngIf="(capabilityForm.get('capabilityName').dirty && capabilityForm.get('capabilityName').minLength)">5 chars min</small>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="description" class="col-sm-3 col-form-label">Description</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="description" placeholder="Description ..." formControlName="description">
+                                <small class="form-text text-muted"><strong>Optional</strong> description of the capability (250 chars).</small>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="componentId" class="col-sm-3 col-form-label">Component</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="componentId" formControlName="componentId">
+                                <option [ngValue]="componentId">Please select...</option>
+                                <option *ngFor="let o of referenceData.comps" [value]="o.id">{{o.name}}</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="attributeId" class="col-sm-3 col-form-label">Attribute</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="attributeId" formControlName="attributeId">
+                                <option [ngValue]="attributeId">Please select...</option>
+                                <option *ngFor="let o of referenceData.attrs" [value]="o.id">{{o.name}}</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 push-6">
+                                <span>
+                                <button class="btn btn-default" type="button" (click)="onCapabilityRetrieved()">Cancel</button>
+                                <span>
+                                <button class="btn btn-primary" type="submit" [disabled]="!capabilityForm.valid">Save</button>
+                            </span>
+                                </span>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header"><h5>Risk Characteristics</h5></div>
+                <div class="card-block">
+                    
+                    <p class="card-text">Inherent risk characteristics for this capability.</p>
+                    
+                    <div class="form-group row">
+                        <label for="frequencyId" class="col-sm-3 col-form-label">Frequency</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="frequencyId" formControlName="frequencyId">
+                                <option [ngValue]="frequencyId" [selected]="!frequencyId" >Not specified</option>
+                                <option *ngFor="let o of referenceData.frequency" [value]="o.key">{{o.value}}</option>
+                            </select>
+                            <small class="form-text text-muted">Consider how often this capability failed, or what is the probabilty of failure?</small>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="impactId" class="col-sm-3 col-form-label">Impact</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="impactId" formControlName="impactId">
+                                <option [ngValue]="impactId" [selected]="!impactId">Not specified</option>
+                                <option *ngFor="let o of referenceData.impact" [ngValue]="o.key">{{o.value}}</option>
+                            </select>
+                            <small class="form-text text-muted">What is the likely impact if this capability were to fail?</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header"><h5>External Signals</h5></div>
+                <div class="card-block">
+                    <p class="card-text">Data from other systems linked to this capability</p>
+                    
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>
+</form>
+<br>Dirty: {{capabilityForm.dirty }}
+<br>Touched: {{capabilityForm.touched }}
+<br>Valid: {{capabilityForm.valid }}
+<br>Value: {{ capabilityForm.value | json }}
+<br>{{ capability | json }}

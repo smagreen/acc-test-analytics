@@ -1,7 +1,7 @@
 import './rxjs-extensions';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
@@ -21,6 +21,7 @@ import { ComponentListComponent } from './component/component-list/component-lis
 import { Error404Component } from './errors/404.component';
 
 import { ComponentService } from './component/component.service';
+import { ReferenceDataService } from './capability/reference-data.service';
 
 import { appRoutes } from './app.routes';
 
@@ -40,7 +41,7 @@ import { appRoutes } from './app.routes';
   imports: [
     NgbModule.forRoot(),
     BrowserModule,
-    FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
@@ -48,6 +49,7 @@ import { appRoutes } from './app.routes';
     ComponentService,
     AttributeService,
     CapabilityService,
+    ReferenceDataService,
     CapabilityDetailsResolver
   ],
   bootstrap: [AppComponent]

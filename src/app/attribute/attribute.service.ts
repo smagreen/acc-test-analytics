@@ -22,7 +22,7 @@ export class AttributeService {
         setTimeout(() => {
             subject.next(ATTRIBUTES);
             subject.complete();
-        }, 1000);
+        }, 500);
         return subject;
     }
 }

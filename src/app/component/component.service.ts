@@ -23,7 +23,7 @@ export class ComponentService {
         setTimeout(() => {
             subject.next(COMPONENTS);
             subject.complete();
-        }, 1000);
+        }, 500);
         return subject;
     }
 }
