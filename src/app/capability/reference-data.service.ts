@@ -12,7 +12,8 @@ map.set('frequency', [
         { key: '4', value: 'Occasionally/Probable'},
         { key: '5', value: 'Often/Frequent'}]);
 
-map.set('impact', [{ key: '1', value: 'None'},
+map.set('impact', [
+        { key: '1', value: 'None'},
         { key: '2', value: 'Minimal/Negligible'},
         { key: '3', value: 'Some/Marginal'},
         { key: '4', value: 'Considerable/Critical'},
@@ -22,8 +23,6 @@ map.set('impact', [{ key: '1', value: 'None'},
 
 @Injectable()
 export class ReferenceDataService {
-    constructor() { }
-
     getReferenceData(): Observable< Map<string, any>> {
 
         return Observable.of(map).delay(500);
