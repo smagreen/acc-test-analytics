@@ -17,16 +17,11 @@ export class CapabilityDetailsResolver implements Resolve<any> {
       return Observable.forkJoin(
             this.capabilityService.getCapability(route.params['id']),
             this.componentService.getComponents(),
-            this.attributeService.getAttributes(),
-            this.refData.getReferenceData()
+            this.attributeService.getAttributes()
       ).map(res => ({
             capability: res[0],
             components: res[1],
-            attributes: res[2],
-            referenceData: {
-                frequency: res[3].get('frequency'),
-                impact: res[3].get('impact')
-            }})
+            attributes: res[2]})
         );
     }
 }

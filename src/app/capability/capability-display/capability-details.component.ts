@@ -33,8 +33,8 @@ export class CapabilityDetailsComponent implements OnInit {
             this.capability = data['capability'].capability;
             this.referenceData.attrs =  data['capability'].attributes;
             this.referenceData.comps = data['capability'].components;
-            this.referenceData.frequency = data['capability'].referenceData.frequency;
-            this.referenceData.impact = data['capability'].referenceData.impact;
+            this.referenceData.frequency = this.refData.frequency;
+            this.referenceData.impact = this.refData.impact;
             this.onCapabilityRetrieved();
         });
 
