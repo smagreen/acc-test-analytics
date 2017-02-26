@@ -27,7 +27,6 @@ export class CapabilityService {
     private getCapabilities(): Observable<ICapability[]> {
         return this.http.get(this.baseUrl)
             .map(this.extractData)
-            // .do(data => console.log('getProducts: ' + JSON.stringify(data)))
             .catch(this.handleError);
     } 
 
