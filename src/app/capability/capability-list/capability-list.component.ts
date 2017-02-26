@@ -16,7 +16,8 @@ export class CapabilityListComponent implements OnInit {
 
   constructor(private capabilityService: CapabilityService ) { }
 
-  ngOnInit() {
+  ngOnInit() {  
+
    this.capabilityService.getCapabilityData().subscribe(
      c => this.matrix = c,
      e => console.log('error:', e),

@@ -25,6 +25,10 @@ import { ReferenceDataService } from './capability/reference-data.service';
 
 import { appRoutes } from './app.routes';
 
+// Imports for loading & configuring the in-memory web api
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { CapabilityData } from './mock/capability.data';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,14 +40,16 @@ import { appRoutes } from './app.routes';
     CapabilityCardComponent,
     CapabilityDetailsComponent,
     ComponentListComponent,
-    Error404Component
+    Error404Component,
+    
   ],
   imports: [
     NgbModule.forRoot(),
     BrowserModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    InMemoryWebApiModule.forRoot(CapabilityData),
   ],
   providers: [
     ComponentService,

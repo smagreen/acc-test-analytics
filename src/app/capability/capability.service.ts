@@ -1,46 +1,38 @@
 import '../rxjs-extensions';
 import { Injectable } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ICapability, IComponent, IAttribute, CapabilityMatrix, MatrixElement } from '../model/capability.model';
 import { ComponentService } from '../component/component.service';
 import { AttributeService } from '../attribute/attribute.service';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-
-const CAPABILITIES: ICapability[] = [
-    { id: '11', attributeId: '1', componentId: '1', name: 'Capability A1 - C1', description: 'This is the description for Capability id:11'},
-    { id: '112', attributeId: '1', componentId: '1', name: 'Capability 2 A1 - C1', description: ''},
-    { id: '12', attributeId: '1', componentId: '2', name: 'Capability A1 - C2', description: ''},
-    { id: '13', attributeId: '1', componentId: '3', name: 'Capability A1 - C3', description: ''},
-    { id: '21', attributeId: '2', componentId: '1', name: 'Capability A2 - C1', description: ''},
-    { id: '22', attributeId: '2', componentId: '2', name: 'Capability A2 - C2', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.'},
-    { id: '24', attributeId: '2', componentId: '4', name: 'Capability A2 - C4', description: ''},
-    { id: '64', attributeId: '6', componentId: '4', name: 'Capability A6 - C4', description: ''},
-    { id: '65', attributeId: '6', componentId: '4', name: 'Capability A6 - C4', description: ''},
-    { id: '25', attributeId: '2', componentId: '5', name: 'Capability A2 - C5', description: ''},
-    { id: '26', attributeId: '2', componentId: '6', name: 'Capability A2 - C6', description: ''},
-    { id: '33', attributeId: '2', componentId: '6', name: 'Capability 2 A2 - C6', description: ''},
-    { id: '34', attributeId: '2', componentId: '6', name: 'Capability 3 A2 - C6', description: ''},
-    { id: '35', attributeId: '2', componentId: '6', name: 'Capability 4 A2 - C6', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.'},
-    { id: '36', attributeId: '2', componentId: '6', name: 'Capability 5 A2 - C6', description: ''},
-    { id: '37', attributeId: '2', componentId: '6', name: 'Capability 6 A2 - C6', description: ''},
-    { id: '38', attributeId: '2', componentId: '6', name: 'Capability 7 A2 - C6', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.'}
-];
-
 @Injectable()
 export class CapabilityService {
 
-    constructor (private componentService: ComponentService, private attributeService: AttributeService) { }
+     private baseUrl = 'api/capabilities';
+
+    constructor (private http: Http, private componentService: ComponentService, private attributeService: AttributeService) { }
+
+    private handleError(error: Response): Observable<any> {
+        // in a real world app, we may send the server to some remote logging infrastructure
+        // instead of just logging it to the console
+        console.error(error);
+        return Observable.throw(error.json().error || 'Server error');
+    }
+
+    private extractData(response: Response) {
+            let body = response.json();
+            return body.data || {};
+        }
+
 
     private getCapabilities(): Observable<ICapability[]> {
-
-        const subject = new Subject<ICapability[]> ();
-        setTimeout(() => {
-            subject.next(CAPABILITIES);
-            subject.complete();
-        }, 1000);
-        return subject;
-    }
+        return this.http.get(this.baseUrl)
+            .map(this.extractData)
+            // .do(data => console.log('getProducts: ' + JSON.stringify(data)))
+            .catch(this.handleError);
+    } 
 
      getCapabilityData(): Observable<CapabilityMatrix> {
 
@@ -53,7 +45,10 @@ export class CapabilityService {
     }
 
     getCapability(id: string): Observable<ICapability> {
-        return Observable.of(CAPABILITIES.find(c => c.id === id));
+        return this.http.get(this.baseUrl + '/' + id)
+            .map(this.extractData)
+            .do(data => console.log('getProducts: ' + JSON.stringify(data)))
+            .catch(this.handleError);
     }
 
     // build the matrix - resolving attribute and component ids to the relevant objects
