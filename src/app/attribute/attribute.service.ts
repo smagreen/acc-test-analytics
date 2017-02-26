@@ -1,29 +1,28 @@
 import { Injectable } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
 import { IAttribute } from '../model/capability.model';
-
-const ATTRIBUTES: IAttribute[] = [
-    { id: '1', name: 'Attribute 1', description: 'Description 1'},
-    { id: '2', name: 'Attribute 2', description: 'Description 2'},
-    { id: '3', name: 'Attribute 3', description: 'Description 3'},
-    { id: '4', name: 'Attribute 4', description: 'Description 4'},
-    { id: '5', name: 'Attribute 5', description: 'Description 6'},
-    { id: '6', name: 'Attribute 6', description: 'Description 6'},
-];
 
 @Injectable()
 export class AttributeService {
-    constructor() { }
+ private baseUrl = 'api/attributes';
 
+    constructor(private http: Http) { }
+    
     getAttributes(): Observable<IAttribute[]> {
+      return this.http.get(this.baseUrl)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
-        const subject = new Subject<IAttribute[]> ();
-        setTimeout(() => {
-            subject.next(ATTRIBUTES);
-            subject.complete();
-        }, 500);
-        return subject;
+    private handleError(error: Response): Observable<any> {
+        console.error(error);
+        return Observable.throw(error.json().error || 'Server error');
+    }
+
+    private extractData(response: Response) {
+        let body = response.json();
+        return body.data || {};
     }
 }
 
