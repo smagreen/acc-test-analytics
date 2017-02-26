@@ -5,27 +5,24 @@ import { ICapability, IComponent, IAttribute, CapabilityMatrix, MatrixElement } 
 import { ComponentService } from '../component/component.service';
 import { AttributeService } from '../attribute/attribute.service';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class CapabilityService {
 
      private baseUrl = 'api/capabilities';
 
-    constructor (private http: Http, private componentService: ComponentService, private attributeService: AttributeService) { }
+    constructor (private http: Http, private componentService: ComponentService, 
+                    private attributeService: AttributeService) { }
 
     private handleError(error: Response): Observable<any> {
-        // in a real world app, we may send the server to some remote logging infrastructure
-        // instead of just logging it to the console
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
     }
 
     private extractData(response: Response) {
-            let body = response.json();
-            return body.data || {};
-        }
-
+        let body = response.json();
+        return body.data || {};
+    }
 
     private getCapabilities(): Observable<ICapability[]> {
         return this.http.get(this.baseUrl)
