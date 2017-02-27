@@ -1,8 +1,7 @@
 import 'rxjs/add/operator/debounceTime';
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { IAttribute, ICapability, IComponent } from '../../model/capability.model';
 import { ReferenceDataService } from '../reference-data.service';
@@ -71,7 +70,7 @@ export class CapabilityDetailsComponent implements OnInit {
      calculateInherentRisk() {
         const f = this.capabilityForm.get('frequencyId').value;
         const i = this.capabilityForm.get('impactId').value;
-        this.riskStatement = (f && i) ? this.riskService.quickRiskCalculator(f, i) : this.riskStatement = 'N/A';
+        this.riskStatement = (f && i) ? this.riskService.quickRiskCalculator(f, i) : 'N/A';
      }
 
     save() {
@@ -93,6 +92,6 @@ export class CapabilityDetailsComponent implements OnInit {
     }
 
     cancel() {
-        // this.capability.id = '';
+        this.router.navigate(['/capabilities']);
     }
 }
