@@ -9,7 +9,7 @@ export class ComponentService {
     private baseUrl = 'api/components';
 
     constructor(private http: Http) { }
-    
+
     getComponents(): Observable<IComponent[]> {
       return this.http.get(this.baseUrl)
             .map(this.extractData)
@@ -22,7 +22,7 @@ export class ComponentService {
     }
 
     private extractData(response: Response) {
-        let body = response.json();
+        const body = response.json();
         return body.data || {};
     }
 }

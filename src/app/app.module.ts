@@ -1,6 +1,7 @@
 import './rxjs-extensions';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { LOCALE_ID } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
@@ -15,6 +16,7 @@ import { CapabilityListComponent,
          CapabilityDetailsComponent,
          CapabilityDisplayComponent,
          CapabilityCardComponent,
+         InherentRiskComponent,
          CapabilityDetailsResolver } from './capability/index';
 import { CapabilityService } from './capability/capability.service';
 import { ComponentListComponent } from './component/component-list/component-list.component';
@@ -22,6 +24,7 @@ import { Error404Component } from './errors/404.component';
 
 import { ComponentService } from './component/component.service';
 import { ReferenceDataService } from './capability/reference-data.service';
+import { RiskService } from './capability/risk.service';
 
 import { appRoutes } from './app.routes';
 
@@ -40,8 +43,8 @@ import { CapabilityData } from './mock/capability.data';
     CapabilityCardComponent,
     CapabilityDetailsComponent,
     ComponentListComponent,
-    Error404Component,
-    
+    InherentRiskComponent,
+    Error404Component
   ],
   imports: [
     NgbModule.forRoot(),
@@ -52,10 +55,15 @@ import { CapabilityData } from './mock/capability.data';
     InMemoryWebApiModule.forRoot(CapabilityData),
   ],
   providers: [
+    {
+        provide: LOCALE_ID,
+        useValue: 'en-gb'
+    },
     ComponentService,
     AttributeService,
     CapabilityService,
     ReferenceDataService,
+    RiskService,
     CapabilityDetailsResolver
   ],
   bootstrap: [AppComponent]

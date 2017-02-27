@@ -4,6 +4,8 @@ export interface ICapability {
     description?: string;
     componentId: string;
     attributeId: string;
+    frequencyId?: string;
+    impactId?: string;
 }
 
 export interface IAttribute {

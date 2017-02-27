@@ -11,7 +11,7 @@ export class CapabilityService {
 
      private baseUrl = 'api/capabilities';
 
-    constructor (private http: Http, private componentService: ComponentService, 
+    constructor (private http: Http, private componentService: ComponentService,
                     private attributeService: AttributeService) { }
 
     private handleError(error: Response): Observable<any> {
@@ -20,7 +20,7 @@ export class CapabilityService {
     }
 
     private extractData(response: Response) {
-        let body = response.json();
+        const body = response.json();
         return body.data || {};
     }
 
@@ -28,7 +28,7 @@ export class CapabilityService {
         return this.http.get(this.baseUrl)
             .map(this.extractData)
             .catch(this.handleError);
-    } 
+    }
 
      getCapabilityData(): Observable<CapabilityMatrix> {
 
@@ -43,13 +43,40 @@ export class CapabilityService {
     getCapability(id: string): Observable<ICapability> {
         return this.http.get(this.baseUrl + '/' + id)
             .map(this.extractData)
-            .do(data => console.log('getProducts: ' + JSON.stringify(data)))
+            .do(data => console.log('getcapabilities: ' + JSON.stringify(data)))
+            .catch(this.handleError);
+    }
+
+    saveCapability(capability: ICapability): Observable<ICapability> {
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+
+        if (capability.id.length === 0) {
+            return this.createCapability(capability, options);
+        }
+        return this.updateCapability(capability, options);
+    }
+
+    private createCapability(capability: ICapability, options: RequestOptions): Observable<ICapability> {
+        // capability.id = undefined;
+        capability.id = 'all new';
+        return this.http.post(this.baseUrl, capability, options)
+            .map(this.extractData)
+            .do(data => console.log('createCapability: ' + JSON.stringify(data)))
+            .catch(this.handleError);
+    }
+
+    private updateCapability(capability: ICapability, options: RequestOptions): Observable<ICapability> {
+        const url = `${this.baseUrl}/${capability.id}`;
+        return this.http.put(url, capability, options)
+            .map(() => capability)
+            .do(data => console.log('updateCapability: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }
 
     // build the matrix - resolving attribute and component ids to the relevant objects
     // easier to do on the server - but this is a hack for now!
-    resolveMatrix(attrList: IAttribute[], componentList: IComponent[], capsList: ICapability[]): CapabilityMatrix {
+    private resolveMatrix(attrList: IAttribute[], componentList: IComponent[], capsList: ICapability[]): CapabilityMatrix {
         const matrix: CapabilityMatrix = { elements: [], attributes: attrList, components: componentList };
 
         capsList.forEach(c => {
