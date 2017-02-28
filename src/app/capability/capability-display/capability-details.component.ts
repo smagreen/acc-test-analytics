@@ -92,6 +92,6 @@ export class CapabilityDetailsComponent implements OnInit {
     }
 
     cancel() {
-        this.router.navigate(['/capabilities']);
+        this.onSaveComplete();
     }
 }
