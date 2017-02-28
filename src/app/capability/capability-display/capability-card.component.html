@@ -1,16 +1,82 @@
-<!--<div class="card-header">Capability Card <span class="badge badge-pill badge-danger">High Risk</span></div> -->
-<div class="card-block">
-  <h4 class="card-title">{{capability.name}} </h4>
-  <p class="card-text">{{ capability.description }}</p>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Inherent risk <span class="badge badge-pill badge-danger" style="margin-left:1rem;">High</span></li>
-    <li class="list-group-item"><span class="badge badge-pill badge-danger">Low</span> Test coverage </li>
-    <li class="list-group-item"><span class="badge badge-warning">13</span> Bugs </li>
-    <li class="list-group-item"><span class="badge badge-pill badge-info">Low</span> Code Churn </li>
-  </ul>
+<div class="card mb-3">
   <div class="card-block">
-    <a [routerLink]="['/capability', capability.id]" class="card-link">Edit</a>
-    <a href="#" class="card-link">Another link</a>
+      <a [routerLink]="['/capability', capability.id]" class="card-link"><h5 class="card-title">{{capability.name}}</h5></a>
+      <p class="card-subtitle mb-2 text-muted">{{ capability.description }}</p>
+      <hr>
+      <div class="row">
+          <div class="col">
+            <div class="card border-0">
+                <h5 class="card-title">Risk</h5>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item justify-content-between">
+                    Probability
+                    <span>{{ capability.frequencyId ? capability.frequencyId : 'N/A'}}</span>
+                  </li>
+                  <li class="list-group-item justify-content-between">
+                    Impact
+                    <span>{{ capability.impactId ? capability.impactId : 'N/A'}}</span>
+                  </li>
+                </ul>
+              </div>
+          </div>
+          <div class="col">
+              <div class="card border-0">
+                <h5 class="card-title">Test</h5>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item justify-content-between">
+                    <a href="#">Test Cases</a>
+                    <span>140</span>
+                  </li>
+                  <li class="list-group-item justify-content-between">
+                    Executed
+                    <span>23</span>
+                  </li>
+                  <li class="list-group-item justify-content-between">
+                    Failures
+                    <span class="badge badge-danger">11</span>
+                  </li>
+                </ul>
+              </div>
+          </div>
+          <div class="col">
+            <div class="card border-0">
+                <h5 class="card-title">Defects</h5>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item justify-content-between">
+                    Severity 1
+                    <span>0</span>
+                  </li>
+                  <li class="list-group-item justify-content-between">
+                    Severity 2
+                    <span class="badge badge-warning">2</span>
+                  </li>
+                  <li class="list-group-item justify-content-between">
+                    Severity 3
+                    <span>5</span>
+                  </li>
+                </ul>
+              </div>
+          </div>
+          <div class="col">
+              <div class="card border-0">
+                <h5 class="card-title">Code</h5>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item justify-content-between">
+                    Churn
+                    <span class="badge badge-success">10%</span>
+                  </li>
+                 <li class="list-group-item justify-content-between">
+                    Unit Test Coverage
+                    <span class="badge badge-danger">31%</span>
+                  </li>
+                 <li class="list-group-item justify-content-between">
+                    SQALE 
+                    <span>A</span>
+                  </li>
+                </ul>
+              </div>
+          </div>
+      </div>
+      <p class="card-text"><small class="text-muted">Capability Id: {{capability.id}}</small></p>
   </div>
-  <p class="card-text"><small class="text-muted">Capability Id: {{capability.id}}</small></p>
 </div>

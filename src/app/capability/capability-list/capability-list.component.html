@@ -37,7 +37,7 @@
     <div *ngIf="intersectionDescription && !selectedElement" class="alert alert-info" role="alert">
         <strong>{{intersectionDescription}}</strong> has no recorded capabilities.
     </div>
-    <div class="row"*ngIf="selectedElement">
+    <div *ngIf="selectedElement">
         <app-capability-display [matrixElement]="selectedElement"></app-capability-display>
     </div>
 

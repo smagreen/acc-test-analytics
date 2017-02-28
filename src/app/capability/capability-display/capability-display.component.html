@@ -1,4 +1,4 @@
-<div class="card-columns" >
-    <app-capability-card *ngFor="let c of matrixElement.capabilities" class="card" style="width: 20rem;" [capability]="c" ></app-capability-card>
+<div>
+    <app-capability-card *ngFor="let cap of matrixElement.capabilities" [capability]="cap" ></app-capability-card>
     <!--<div>{{ c | json }}</div>-->
 </div>
