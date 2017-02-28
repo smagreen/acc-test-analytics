@@ -1,41 +1,43 @@
-<form [formGroup]="capabilityForm" (ngSubmit)="save()">
+<form [formGroup]="capabilityForm" (ngSubmit)="saveCapability()">
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-4">
             <div class="card">
                 <div class="card-header"><h5>Capability Details</h5></div>
                 <div class="card-block">
-                    <div class="form-group row" [ngClass]="{'has-danger' : (capabilityForm.get('name').touched || capabilityForm.get('name').dirty)}">
+                    <div class="form-group row" [ngClass]="{'has-danger': displayMessage.name }">
                         <label for="name" class="col-sm-3 col-form-label">Capability</label>
                         <div class="col-sm-9">
-                            <input class="form-control" id="name" placeholder="Capability..." formControlName="name">
-                            <div class="form-control-feedback" *ngIf="(capabilityForm.get('name').touched && capabilityForm.get('name').invalid)">Required</div>
-                            <small class="form-text text-muted" *ngIf="(capabilityForm.get('name').dirty && capabilityForm.get('name').minLength)">5 chars min</small>
+                            <input class="form-control" [ngClass]="{'form-control-danger': displayMessage.name }" id="name" placeholder="Capability..." formControlName="name">
+                            <div class="form-control-feedback" *ngIf="displayMessage.name">{{displayMessage.name}}</div>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row" [ngClass]="{'has-danger': displayMessage.descrption }">
                         <label for="description" class="col-sm-3 col-form-label">Description</label>
                         <div class="col-sm-9">
-                            <input class="form-control" id="description" placeholder="Description ..." formControlName="description">
-                            <small class="form-text text-muted"><strong>Optional</strong> description of the capability (250 chars).</small>
+                            <input class="form-control" [ngClass]="{'form-control-danger': displayMessage.description }" id="description" placeholder="Description ..." formControlName="description">
+                            <div class="form-control-feedback" *ngIf="displayMessage.description">{{displayMessage.description}}</div>
+                            <small class="form-text text-muted"><strong>Optional</strong> description of the capability (500 chars).</small>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row" [ngClass]="{'has-danger': displayMessage.componentId }">
                         <label for="componentId" class="col-sm-3 col-form-label">Component</label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="componentId" formControlName="componentId">
+                            <select class="form-control" [ngClass]="{'form-control-danger': displayMessage.componentId }" id="componentId" formControlName="componentId">
                             <option [ngValue]="componentId">Please select...</option>
                             <option *ngFor="let o of referenceData.comps" [value]="o.id">{{o.name}}</option>
                         </select>
+                        <div class="form-control-feedback" *ngIf="displayMessage.componentId">{{displayMessage.componentId}}</div>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row" [ngClass]="{'has-danger': displayMessage.attributeId }">
                         <label for="attributeId" class="col-sm-3 col-form-label">Attribute</label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="attributeId" formControlName="attributeId">
+                            <select class="form-control" [ngClass]="{'form-control-danger': displayMessage.attributeId }" id="attributeId" formControlName="attributeId">
                             <option [ngValue]="attributeId">Please select...</option>
                             <option *ngFor="let o of referenceData.attrs" [value]="o.id">{{o.name}}</option>
                         </select>
+                        <div class="form-control-feedback" *ngIf="displayMessage.attributeId">{{displayMessage.attributeId}}</div>
                         </div>
                     </div>
                 </div>
@@ -48,23 +50,25 @@
                 <div class="card-block">
                     <p class="card-text">Inherent risk characteristics for this capability.</p>
                    
-                    <div class="form-group row">
+                    <div class="form-group row" [ngClass]="{'has-danger': displayMessage.frequencyId }">
                         <label for="frequencyId" class="col-sm-3 col-form-label">Probability</label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="frequencyId" formControlName="frequencyId">
+                            <select class="form-control" [ngClass]="{'form-control-danger': displayMessage.frequencyId }" id="frequencyId" formControlName="frequencyId">
                                 <option [ngValue]="frequencyId" >Not specified</option>
                                 <option *ngFor="let o of referenceData.frequency" [value]="o.key">{{o.value}}</option>
                             </select>
+                            <div class="form-control-feedback" *ngIf="displayMessage.frequencyId">{{displayMessage.frequencyId}}</div>
                             <small class="form-text text-muted">Consider how often this capability failed, or what is the probabilty of failure?</small>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row" [ngClass]="{'has-danger': displayMessage.impactId }">
                         <label for="impactId" class="col-sm-3 col-form-label">Impact</label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="impactId" formControlName="impactId">
+                            <select class="form-control" [ngClass]="{'form-control-danger': displayMessage.impactId }" id="impactId" formControlName="impactId">
                                 <option [ngValue]="impactId">Not specified</option>
                                 <option *ngFor="let o of referenceData.impact" [ngValue]="o.key">{{o.value}}</option>
                             </select>
+                            <div class="form-control-feedback" *ngIf="displayMessage.impactId">{{displayMessage.impactId}}</div>
                             <small class="form-text text-muted">What is the likely impact if this capability were to fail?</small>
                         </div>
                     </div>
@@ -91,6 +95,7 @@
         </div>
     </div>
 </div>
+<ngb-alert class='has-error' *ngIf='errorMessage'>{{errorMessage}}</ngb-alert>
 </form>
 <!--<br>Dirty: {{capabilityForm.dirty }}
 <br>Touched: {{capabilityForm.touched }}
