@@ -10,11 +10,11 @@
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item justify-content-between">
                     Probability
-                    <span>{{ capability.frequencyId ? capability.frequencyId : 'N/A'}}</span>
+                    <span>{{ capability.risk?.frequencyId ? capability.risk?.frequencyId : 'N/A'}}</span>
                   </li>
                   <li class="list-group-item justify-content-between">
                     Impact
-                    <span>{{ capability.impactId ? capability.impactId : 'N/A'}}</span>
+                    <span>{{ capability.risk?.impactId ? capability.risk.impactId : 'N/A'}}</span>
                   </li>
                 </ul>
               </div>
@@ -25,15 +25,15 @@
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item justify-content-between">
                     <a href="#">Test Cases</a>
-                    <span>140</span>
+                    <span>{{ capability.test.cases }}</span>
                   </li>
                   <li class="list-group-item justify-content-between">
                     Executed
-                    <span>23</span>
+                    <span>{{ capability.test.executed }}</span>
                   </li>
                   <li class="list-group-item justify-content-between">
-                    Failures
-                    <span class="badge badge-danger">11</span>
+                    Failed
+                    <span class="badge badge-danger">{{ capability.test.failed }}</span>
                   </li>
                 </ul>
               </div>
@@ -44,15 +44,15 @@
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item justify-content-between">
                     Severity 1
-                    <span>0</span>
+                    <span>{{ capability?.defects.type1 }}</span>
                   </li>
                   <li class="list-group-item justify-content-between">
                     Severity 2
-                    <span class="badge badge-warning">2</span>
+                    <span class="badge badge-warning">{{ capability?.defects.type2 }}</span>
                   </li>
                   <li class="list-group-item justify-content-between">
                     Severity 3
-                    <span>5</span>
+                    <span>{{ capability?.defects.type3 }}</span>
                   </li>
                 </ul>
               </div>
@@ -62,16 +62,20 @@
                 <h5 class="card-title">Code</h5>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item justify-content-between">
+                    <a href="">Modules</a>
+                    <span >{{ capability.code?.moduleCount ?  capability.code?.moduleCount : 'N/A' }}</span>
+                  </li>
+                  <li class="list-group-item justify-content-between">
                     Churn
-                    <span class="badge badge-success">10%</span>
+                    <span>{{ (capability.code?.churn / capability.code?.loc) * 100 }}%</span>
                   </li>
                  <li class="list-group-item justify-content-between">
                     Unit Test Coverage
-                    <span class="badge badge-danger">31%</span>
+                    <span class="badge badge-danger">{{capability.code?.coverage}}%</span>
                   </li>
                  <li class="list-group-item justify-content-between">
                     SQALE 
-                    <span>A</span>
+                    <span>{{ capability.code?.quality }}</span>
                   </li>
                 </ul>
               </div>

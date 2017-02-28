@@ -80,11 +80,13 @@ export class CapabilityService {
         const matrix: CapabilityMatrix = { elements: [], attributes: attrList, components: componentList };
 
         capsList.forEach(c => {
-            let element: MatrixElement = matrix.elements.find(e => (e.attribute.id === c.attributeId && e.component.id === c.componentId));
+            let element: MatrixElement = matrix.elements
+                .find(e => (e.attribute.id === c.attribute.id && e.component.id === c.component.id));
+
             if (!element) {
                 element = new MatrixElement(c.id,
-                 componentList.find( co => co.id === c.componentId),
-                 attrList.find( a => a.id === c.attributeId), [c]);
+                 componentList.find( co => co.id === c.component.id),
+                 attrList.find( a => a.id === c.attribute.id), [c]);
                  matrix.elements.push(element);
             } else {
                 element.capabilities.push(c);

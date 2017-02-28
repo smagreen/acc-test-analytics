@@ -111,10 +111,10 @@ export class CapabilityDetailsComponent implements OnInit, OnDestroy, AfterViewI
             this.capabilityForm.patchValue({
                 name: this.capability.name,
                 description: this.capability.description,
-                componentId: this.capability.componentId,
-                attributeId: this.capability.attributeId,
-                frequencyId: this.capability.frequencyId,
-                impactId: this.capability.impactId
+                componentId: this.capability.component.id,
+                attributeId: this.capability.attribute.id,
+                frequencyId: this.capability.risk ? this.capability.risk.frequencyId : undefined,
+                impactId: this.capability.risk ? this.capability.risk.impactId : undefined
             });
          }
 
