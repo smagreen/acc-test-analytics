@@ -27,6 +27,7 @@ import { ReferenceDataService } from './capability/reference-data.service';
 import { RiskService } from './capability/risk.service';
 
 import { appRoutes } from './app.routes';
+import { ReferenceDataPipe } from './shared/referenceData.pipe';
 
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -44,7 +45,8 @@ import { CapabilityData } from './mock/capability.data';
     CapabilityDetailsComponent,
     ComponentListComponent,
     InherentRiskComponent,
-    Error404Component
+    Error404Component,
+    ReferenceDataPipe
   ],
   imports: [
     NgbModule.forRoot(),

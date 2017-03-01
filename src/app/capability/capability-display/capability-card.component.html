@@ -10,11 +10,11 @@
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item justify-content-between">
                     Probability
-                    <span>{{ capability.risk?.frequencyId ? capability.risk?.frequencyId : 'N/A'}}</span>
+                    <span>{{ capability.risk?.frequencyId | refDataPipe:frequency }}</span>
                   </li>
                   <li class="list-group-item justify-content-between">
                     Impact
-                    <span>{{ capability.risk?.impactId ? capability.risk.impactId : 'N/A'}}</span>
+                    <span>{{ capability.risk?.impactId  | refDataPipe:impact}}</span>
                   </li>
                 </ul>
               </div>
