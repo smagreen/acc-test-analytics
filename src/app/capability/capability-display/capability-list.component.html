@@ -1,0 +1,19 @@
+<div class="jumbotron" style="margin-top: -15px;">
+    <div class="container">
+        <div class="row" *ngIf="!dataReady">
+            <div class="col-12">
+                <h2 >Loading ...</h2>
+            </div>
+        </div>
+        <h2 *ngIf="dataReady">{{component}} is {{attribute}}</h2>
+        <p>Capabilities (verbs of the system) describes how a particular <strong>Component</strong> satisfies the <strong>Attributes</strong> of the system.</p>
+        <small *ngIf="dataReady" class="text-muted">There are {{filteredCapabilities?.length}} capabilities listed that describe how 
+            <strong>{{component}}</strong> satisfies the <strong>{{attribute}}</strong> attribute of the system.</small>
+    </div>
+</div>
+<div class="container">
+    
+    <div>
+        <app-capability-card *ngFor="let cap of filteredCapabilities" [capability]="cap" ></app-capability-card>
+    </div>
+</div>

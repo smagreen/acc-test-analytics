@@ -1,4 +1,4 @@
-import './rxjs-extensions';
+import './shared/rxjs-extensions';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { LOCALE_ID } from '@angular/core';
@@ -13,8 +13,8 @@ import { AboutComponent } from './about/about.component';
 import { AttributeListComponent } from './attribute/attribute-list/attribute-list.component';
 import { AttributeService } from './attribute/attribute.service';
 import { CapabilityListComponent,
+         CapabilityMatrixComponent,
          CapabilityDetailsComponent,
-         CapabilityDisplayComponent,
          CapabilityCardComponent,
          InherentRiskComponent,
          CapabilityDetailsResolver } from './capability/index';
@@ -23,11 +23,11 @@ import { ComponentListComponent } from './component/component-list/component-lis
 import { Error404Component } from './errors/404.component';
 
 import { ComponentService } from './component/component.service';
-import { ReferenceDataService } from './capability/reference-data.service';
+import { ReferenceDataService, ReferenceDataPipe  } from './shared/index';
 import { RiskService } from './capability/risk.service';
 
 import { appRoutes } from './app.routes';
-import { ReferenceDataPipe } from './shared/referenceData.pipe';
+
 
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -40,7 +40,7 @@ import { CapabilityData } from './mock/capability.data';
     AboutComponent,
     AttributeListComponent,
     CapabilityListComponent,
-    CapabilityDisplayComponent,
+    CapabilityMatrixComponent,
     CapabilityCardComponent,
     CapabilityDetailsComponent,
     ComponentListComponent,

@@ -1,20 +1,14 @@
-import 'rxjs/add/operator/debounceTime';
+import '../../shared/rxjs-extensions';
 import { Component, OnInit, OnDestroy, ViewChildren, AfterViewInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, FormControlName, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/observable/merge';
-
 import { IAttribute, ICapability, IComponent } from '../../model/capability.model';
-import { ReferenceDataService } from '../reference-data.service';
+import { ReferenceDataService, GenericValidator } from '../../shared/index';
 import { RiskService } from '../risk.service';
 import { CapabilityService } from '../capability.service';
-
-import { GenericValidator } from '../../shared/generic-validator';
 
 
 @Component({

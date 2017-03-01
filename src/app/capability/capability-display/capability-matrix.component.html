@@ -1,0 +1,34 @@
+ <div class="jumbotron" style="margin-top: -15px;">
+    <div class="container">
+        <h2>Capability Risk Overview </h2>
+        <div>Capabilities are what your application actually does; they are just like features, except they are tied to a specific Attribute and Component pair.
+            This shows the Total Risk to your application, taking into account all Risk Sources.
+            <!--as well as Mitigation Sources that are checked below.-->
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row" *ngIf="!dataReady">
+        <div>Loading ...</div>
+    </div>
+    <div *ngIf="matrix" class="row">
+        <table class="table table-hover table-bordered text-center">
+            <thead class="thead-inverse">
+                <tr>
+                <th></th>
+                <th *ngFor="let attr of matrix.attributes">{{attr.name}}</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let comp of matrix.components let ri = index">
+                <tr>
+                <th scope="row">{{comp.name}}</th>
+                <td *ngFor="let attr of matrix.attributes let ci = index" (click)="selectIntersection(attr, comp)" [ngClass]="{clickable : convenience[ri][ci] > 0 }">
+                    <span *ngIf="convenience[ri][ci] > 0">{{ convenience[ri][ci] }} </span>
+                </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

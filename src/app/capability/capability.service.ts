@@ -1,4 +1,4 @@
-import '../rxjs-extensions';
+import '../shared/rxjs-extensions';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ICapability, IComponent, IAttribute, CapabilityMatrix, MatrixElement } from '../model/capability.model';
@@ -14,19 +14,15 @@ export class CapabilityService {
     constructor (private http: Http, private componentService: ComponentService,
                     private attributeService: AttributeService) { }
 
-    private handleError(error: Response): Observable<any> {
-        console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
-    }
-
-    private extractData(response: Response) {
-        const body = response.json();
-        return body.data || {};
-    }
-
-    private getCapabilities(): Observable<ICapability[]> {
+    getCapabilities(): Observable<ICapability[]> {
         return this.http.get(this.baseUrl)
             .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    getCapabilitiesByIntersection(attributeId: string, componentId: string): Observable<ICapability[]> {
+        return this.http.get(this.baseUrl)
+            .map( res => this.filterByAttrAndComp(this.extractData(res), attributeId, componentId))
             .catch(this.handleError);
     }
 
@@ -94,6 +90,20 @@ export class CapabilityService {
         });
 
         return matrix;
+    }
+
+    private filterByAttrAndComp(source: ICapability[], attributeId: string, componentId: string) {
+        return source.filter(e => (e.attribute.id === attributeId && e.component.id === componentId));
+    }
+
+    private handleError(error: Response): Observable<any> {
+        console.error(error);
+        return Observable.throw(error.json().error || 'Server error');
+    }
+
+    private extractData(response: Response) {
+        const body = response.json();
+        return body.data || {};
     }
 
 }

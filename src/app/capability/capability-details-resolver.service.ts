@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { CapabilityService } from './capability.service';
 import { AttributeService } from '../attribute/attribute.service';
 import { ComponentService } from '../component/component.service';
-import { ReferenceDataService } from '../capability/reference-data.service';
+import { ReferenceDataService } from '../shared/index';
 
 @Injectable()
 export class CapabilityDetailsResolver implements Resolve<any> {

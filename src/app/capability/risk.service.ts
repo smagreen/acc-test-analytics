@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReferenceDataService } from './reference-data.service';
+import { ReferenceDataService } from '../shared/index';
 
 
 @Injectable()

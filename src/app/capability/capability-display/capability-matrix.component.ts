@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { IComponent, IAttribute, MatrixElement, CapabilityMatrix } from '../../model/capability.model';
 import { CapabilityService } from '../capability.service';
 
 @Component({
-  selector: 'app-capability-list',
-  templateUrl: './capability-list.component.html'
+  templateUrl: './capability-matrix.component.html',
+  styles: ['.clickable { cursor: pointer }']
 })
-export class CapabilityListComponent implements OnInit {
+export class CapabilityMatrixComponent implements OnInit {
   matrix: CapabilityMatrix;
   dataReady: Boolean  = false;
   selectedElement: MatrixElement;
   intersectionDescription: string;
   convenience: number[][];
 
-  constructor(private capabilityService: CapabilityService ) { }
+  constructor(private router: Router, private capabilityService: CapabilityService ) { }
 
-  ngOnInit() {  
+  ngOnInit() {
 
    this.capabilityService.getCapabilityData().subscribe(
      c => this.matrix = c,
@@ -45,6 +46,8 @@ export class CapabilityListComponent implements OnInit {
 
   selectIntersection(attribute: IAttribute, component: IComponent) {
     this.intersectionDescription = component.name + ' is ' + attribute.name;
-    this.selectedElement = this.getCapabilitiesByAttrAndComp(attribute.id, component.id);
+    // this.selectedElement = this.getCapabilitiesByAttrAndComp(attribute.id, component.id);
+
+    this.router.navigate(['/capabilities'], { queryParams: {attr: attribute.id, comp: component.id}});
  }
 }

@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { ReferenceDataPipe } from '../../shared/referenceData.pipe';
-import { ReferenceDataService } from '../reference-data.service';
+import { ReferenceDataService, ReferenceDataPipe } from '../../shared/index';
 
 @Component({
     selector: 'app-capability-card',
