@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { IAttribute } from '../../model/capability.model';
 import { AttributeService } from '../attribute.service';
+import { ErrorService } from '../../errors/error.service';
 
 @Component({
   selector: 'app-attribute-list',
@@ -13,13 +14,14 @@ subscription: Subscription;
 attributes: IAttribute[] = [];
 dataReady: Boolean  = false;
 
-  constructor(private service: AttributeService) { }
+  constructor(private service: AttributeService, private errorService: ErrorService) { }
 
-    ngOnInit() {
+  ngOnInit() {
+    console.log('init');
     this.subscription = this.service.getAttributes().subscribe(
-        attrs => this.attributes = attrs,
-        e => console.log('onError %s', e),
-        () => { this.dataReady = true; }
+        data => this.attributes = data,
+        e => this.errorService.handleError(e, 'attribute-list.component'),
+        () => this.dataReady = true
     );
   }
 

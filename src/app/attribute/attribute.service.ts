@@ -8,7 +8,7 @@ export class AttributeService {
  private baseUrl = 'api/attributes';
 
     constructor(private http: Http) { }
-    
+
     getAttributes(): Observable<IAttribute[]> {
       return this.http.get(this.baseUrl)
             .map(this.extractData)

@@ -20,12 +20,12 @@ import { CapabilityListComponent,
          CapabilityDetailsResolver } from './capability/index';
 import { CapabilityService } from './capability/capability.service';
 import { ComponentListComponent } from './component/component-list/component-list.component';
-import { Error404Component } from './errors/404.component';
+import { ErrorComponent } from './errors/error.component';
 
 import { ComponentService } from './component/component.service';
 import { ReferenceDataService, ReferenceDataPipe  } from './shared/index';
 import { RiskService } from './capability/risk.service';
-
+import { ErrorService} from './errors/error.service';
 import { appRoutes } from './app.routes';
 
 
@@ -45,7 +45,7 @@ import { CapabilityData } from './mock/capability.data';
     CapabilityDetailsComponent,
     ComponentListComponent,
     InherentRiskComponent,
-    Error404Component,
+    ErrorComponent,
     ReferenceDataPipe
   ],
   imports: [
@@ -66,7 +66,8 @@ import { CapabilityData } from './mock/capability.data';
     CapabilityService,
     ReferenceDataService,
     RiskService,
-    CapabilityDetailsResolver
+    CapabilityDetailsResolver,
+    ErrorService
   ],
   bootstrap: [AppComponent]
 })

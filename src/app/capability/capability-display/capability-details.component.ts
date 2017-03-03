@@ -56,7 +56,7 @@ export class CapabilityDetailsComponent implements OnInit, OnDestroy, AfterViewI
             attributeId: {
                 required: 'Attribute is required'
             },
-            'component.id': {
+            componentId: {
                 required: 'Component is required'
             },
             frequencyId: {

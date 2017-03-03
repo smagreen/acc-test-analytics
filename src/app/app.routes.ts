@@ -8,8 +8,7 @@ import {    CapabilityListComponent,
         } from './capability/index';
 import { ComponentListComponent } from './component/component-list/component-list.component';
 
-
-import { Error404Component } from './errors/404.component';
+import { ErrorComponent } from './errors/error.component';
 
 export const appRoutes: Routes = [
     { path: 'about', component: AboutComponent },
@@ -18,8 +17,8 @@ export const appRoutes: Routes = [
     { path: 'capability/:id', component: CapabilityDetailsComponent, resolve: {capability: CapabilityDetailsResolver } },
     { path: 'capabilities/matrix', component: CapabilityMatrixComponent },
     { path: 'capabilities', component: CapabilityListComponent },
-    { path: '404', component: Error404Component },
-    { path: 'error/:message', component: Error404Component },
-    { path: 'error', component: Error404Component },
+    { path: '404', component: ErrorComponent },
+    { path: 'error/:message', component: ErrorComponent },
+    { path: 'error', component: ErrorComponent },
     { path: '', redirectTo: '/about', pathMatch: 'full' }
 ];
