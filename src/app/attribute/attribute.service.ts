@@ -21,8 +21,8 @@ export class AttributeService {
     }
 
     private extractData(response: Response) {
-        let body = response.json();
-        return body.data || {};
+        const body = response.json();
+        return body.data || body || {};
     }
 }
 

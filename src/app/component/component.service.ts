@@ -23,7 +23,7 @@ export class ComponentService {
 
     private extractData(response: Response) {
         const body = response.json();
-        return body.data || {};
+        return body.data || body || {};
     }
 }
 
