@@ -22,7 +22,8 @@
           <div class="col">
               <div class="card border-0">
                 <h5 class="card-title">Test</h5>
-                <ul class="list-group list-group-flush">
+                <small *ngIf="!capability.test" class="text-muted">Not mapped</small>
+                <ul *ngIf="capability.test" class="list-group list-group-flush">
                   <li class="list-group-item justify-content-between">
                     <a href="#">Test Cases</a>
                     <span>{{ capability.test.cases }}</span>
@@ -41,7 +42,8 @@
           <div class="col">
             <div class="card border-0">
                 <h5 class="card-title">Defects</h5>
-                <ul class="list-group list-group-flush">
+                <small *ngIf="!capability.defects" class="text-muted">Not mapped</small>
+                <ul *ngIf="capability.defects" class="list-group list-group-flush">
                   <li class="list-group-item justify-content-between">
                     Severity 1
                     <span>{{ capability?.defects.type1 }}</span>
@@ -60,7 +62,8 @@
           <div class="col">
               <div class="card border-0">
                 <h5 class="card-title">Code</h5>
-                <ul class="list-group list-group-flush">
+                <small *ngIf="!capability.code" class="text-muted">Not mapped</small>
+                <ul *ngIf="capability.code" class="list-group list-group-flush">
                   <li class="list-group-item justify-content-between">
                     <a href="">Modules</a>
                     <span >{{ capability.code?.moduleCount ?  capability.code?.moduleCount : 'N/A' }}</span>

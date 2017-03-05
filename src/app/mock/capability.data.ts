@@ -17,11 +17,11 @@ export class CapabilityData implements InMemoryDbService {
             { id: '2',  name: 'Capability A1 - C1', description: 'This is the description for Capability id:11',
                 attribute: { id: '1', name: 'Attribute 1', description: 'Description 1'},
                 component: { id: '1', name: 'Component 1', description: 'Description 1'},
-                 risk: {frequencyId: 'E', impactId: '3' },
-                 test: {cases: 8, executed: 5, failed: 3},
-                 defects: {type1: 0, type2: 1, type3: 2 },
-                 code: {loc: 100000, churn: 800, coverage: 14, quality: 'A'}
-            },
+            //      risk: {frequencyId: 'E', impactId: '3' },
+            //      test: {cases: 8, executed: 5, failed: 3},
+            //      defects: {type1: 0, type2: 1, type3: 2 },
+            //      code: {loc: 100000, churn: 800, coverage: 14, quality: 'A'}
+             },
             { id: '3',  name: 'Capability 2 A2 - C1',
                 description: 'This is the description for Capability id:112.  This is second part of the description for Capability id:112',
                 attribute: { id: '2', name: 'Attribute 2', description: 'Description 1'},
