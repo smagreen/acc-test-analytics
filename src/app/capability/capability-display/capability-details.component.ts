@@ -149,7 +149,7 @@ export class CapabilityDetailsComponent implements OnInit, OnDestroy, AfterViewI
     onSaveComplete(): void {
         // Reset the form to clear the flags
         this.capabilityForm.reset();
-        this.router.navigate(['/capabilities']);
+        this.router.navigate(['/capabilities','matrix']);
     }
 
     cancel() {
