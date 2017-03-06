@@ -26,6 +26,7 @@ import { ComponentService } from './component/component.service';
 import { ReferenceDataService, ReferenceDataPipe  } from './shared/index';
 import { RiskService } from './capability/risk.service';
 import { ErrorService} from './errors/error.service';
+import { TestrailService } from './testrail/testrail.service';
 import { appRoutes } from './app.routes';
 
 
@@ -54,7 +55,7 @@ import { CapabilityData } from './mock/capability.data';
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    InMemoryWebApiModule.forRoot(CapabilityData),
+    //InMemoryWebApiModule.forRoot(CapabilityData),
   ],
   providers: [
     {
@@ -67,7 +68,8 @@ import { CapabilityData } from './mock/capability.data';
     ReferenceDataService,
     RiskService,
     CapabilityDetailsResolver,
-    ErrorService
+    ErrorService,
+    TestrailService
   ],
   bootstrap: [AppComponent]
 })
