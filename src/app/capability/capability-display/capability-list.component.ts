@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
-import { IAttribute, ICapability, IComponent } from '../../model/capability.model';
+import { IAttribute, ICapability, IComponent, ITestSection } from '../../model/capability.model';
 import { CapabilityService } from '../capability.service';
 import { ComponentService } from '../../component/component.service';
 import { AttributeService } from '../../attribute/attribute.service';
+import { TestrailService } from '../../testrail/testrail.service';
+
 
 @Component({
   selector: 'app-capability-list',
@@ -23,10 +25,11 @@ export class CapabilityListComponent implements OnInit {
   errorMessage: string;
   attributes: IAttribute[];
   components: IComponent[];
+  sections: ITestSection[];
 
   constructor(  private router: Router, private activatedRoute: ActivatedRoute,
                 private capabilityService: CapabilityService, private attributeService: AttributeService,
-                private componentService: ComponentService ) { }
+                private componentService: ComponentService, private testRail: TestrailService ) { }
 
   ngOnInit() {
 
@@ -46,6 +49,12 @@ export class CapabilityListComponent implements OnInit {
       c => this.components = c,
       e => this.handleError,
       () => this.component = this.components.find(c => c.id === this.componentId).name
+    );
+
+    this.testRail.getSections().subscribe(
+      s => this.sections = s,
+      e => this.handleError,
+      () => console.log(this.sections)
     );
   }
 

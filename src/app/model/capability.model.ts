@@ -42,3 +42,18 @@ export interface IIntersection {
     attribute: IAttribute;
     capabilities: ICapability[];
 }
+
+export interface ITestCase {
+    id: number;
+    section_Id: number;
+    title: string;
+}
+
+export interface ITestSection {
+    id: number;
+    suite_Id: number;
+    name: string;
+    description: string;
+    display_order: number;
+    depth: number;
+}
