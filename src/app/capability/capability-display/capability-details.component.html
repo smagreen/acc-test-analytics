@@ -47,7 +47,7 @@
         <div class="col-xl-4">
             <div class="card">
                 <div class="card-header"><h5>Risk Characteristics</h5></div>
-                <div class="card-block" formGroupName="risk">
+                <div class="card-block">
                     <p class="card-text">Inherent risk characteristics for this capability.</p>
                    
                     <div class="form-group row" [ngClass]="{'has-danger': displayMessage.frequencyId }">
@@ -97,9 +97,9 @@
 </div>
 <ngb-alert class='has-error' *ngIf='errorMessage'>{{errorMessage}}</ngb-alert>
 </form>
-<br>Dirty: {{capabilityForm.dirty }}
+<!--<br>Dirty: {{capabilityForm.dirty }}
 <br>Touched: {{capabilityForm.touched }}
 <br>Valid: {{capabilityForm.valid }}
 <br>Value: {{ capabilityForm.value | json }}
 <hr>
-<br>{{ capability | json }}
+<br>{{ capability | json }}-->

@@ -33,14 +33,12 @@ export class CapabilityDetailsComponent implements OnInit, OnDestroy, AfterViewI
          private refData: ReferenceDataService, private capabilityService: CapabilityService , private riskService: RiskService) {
 
         this.capabilityForm = this.fb.group({
-            name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+            name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(250)]],
             description: ['', [Validators.maxLength(500)]],
             componentId: ['', [Validators.required]],
             attributeId: ['', [Validators.required]],
-            risk: this.fb.group({
-                frequencyId: ['', [Validators.required]],
-                impactId: ['', [Validators.required]]}
-            )
+            frequencyId: ['', [Validators.required]],
+             impactId: ['', [Validators.required]]
         });
 
         // Defines all of the validation messages for the form.
@@ -48,7 +46,7 @@ export class CapabilityDetailsComponent implements OnInit, OnDestroy, AfterViewI
             name: {
                 required: 'Product name is required.',
                 minlength: 'Product name must be at least five characters.',
-                maxlength: 'Product name cannot exceed 50 characters.'
+                maxlength: 'Product name cannot exceed 250 characters.'
             },
             description: {
                 maxlength: 'Product description cannot exceed 500 characters.'
@@ -109,34 +107,26 @@ export class CapabilityDetailsComponent implements OnInit, OnDestroy, AfterViewI
                 description: this.capability.description,
                 attributeId: this.capability.attribute.id,
                 componentId: this.capability.component.id,
-                risk: {
-                    frequencyId: this.capability.risk ? this.capability.risk.frequencyId : undefined,
-                    impactId: this.capability.risk ? this.capability.risk.impactId : undefined
-                }
+                frequencyId: this.capability.frequencyId,
+                impactId: this.capability.impactId
             });
          }
 
         this.calculateInherentRisk();
-        this.capabilityForm.get('risk.frequencyId').valueChanges.subscribe(value => this.calculateInherentRisk());
-        this.capabilityForm.get('risk.impactId').valueChanges.subscribe(value => this.calculateInherentRisk());
+        this.capabilityForm.get('frequencyId').valueChanges.subscribe(value => this.calculateInherentRisk());
+        this.capabilityForm.get('impactId').valueChanges.subscribe(value => this.calculateInherentRisk());
     }
 
     calculateInherentRisk() {
-        const f = this.capabilityForm.get('risk.frequencyId').value;
-        const i = this.capabilityForm.get('risk.impactId').value;
+        const f = this.capabilityForm.get('frequencyId').value;
+        const i = this.capabilityForm.get('impactId').value;
         this.riskStatement = (f && i) ? this.riskService.quickRiskCalculator(f, i) : 'N/A';
     }
 
     saveCapability() {
         if (this.capabilityForm.dirty && this.capabilityForm.valid) {
-             const x = Object.assign({}, this.capability, this.capabilityForm.value);
-             // Hack => Use convenience values
-             x.component.id = x.componentId;
-             x.attribute.id = x.attributeId;
-             delete(x.componentId);
-             delete(x.attributeId);
-             // Hack
-             this.capabilityService.saveCapability(x)
+             const update = Object.assign({}, this.capability, this.capabilityForm.value);
+             this.capabilityService.saveCapability(update)
                 .subscribe(
                     () => this.onSaveComplete(),
                     (error: any) => this.errorMessage = <any>error
@@ -149,7 +139,7 @@ export class CapabilityDetailsComponent implements OnInit, OnDestroy, AfterViewI
     onSaveComplete(): void {
         // Reset the form to clear the flags
         this.capabilityForm.reset();
-        this.router.navigate(['/capabilities','matrix']);
+        this.router.navigate(['/capabilities', 'matrix']);
     }
 
     cancel() {

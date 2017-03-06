@@ -4,7 +4,10 @@ export interface ICapability {
     description?: string;
     component: IComponent;
     attribute: IAttribute;
-    risk?: { frequencyId: string; impactId: string; description?: string };
+    componentId: string;
+    attributeId: string;
+    frequencyId: string;
+    impactId: string;
     test?: { externalId?: string, cases: number, executed: number, failed: number };
     defects?: {type1: number, type2: number, type3: number};
     code?: {loc: number, churn: number, coverage: number, quality: string };

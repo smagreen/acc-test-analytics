@@ -1,6 +1,6 @@
 import '../shared/rxjs-extensions';
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { ICapability, IComponent, IAttribute, CapabilityMatrix, MatrixElement } from '../model/capability.model';
 import { ComponentService } from '../component/component.service';
 import { AttributeService } from '../attribute/attribute.service';
@@ -21,8 +21,14 @@ export class CapabilityService {
     }
 
     getCapabilitiesByIntersection(attributeId: string, componentId: string): Observable<ICapability[]> {
-        return this.http.get(this.baseUrl)
-            .map( res => this.filterByAttrAndComp(this.extractData(res), attributeId, componentId))
+        const params = new URLSearchParams();
+        params.set('attributeId', attributeId);
+        params.set('componentId', componentId);
+
+        const options = new RequestOptions({ search: params });
+
+        return this.http.get(this.baseUrl, options )
+            .map(this.extractData)
             .catch(this.handleError);
     }
 
@@ -39,7 +45,6 @@ export class CapabilityService {
     getCapability(id: string): Observable<ICapability> {
         return this.http.get(this.baseUrl + '/' + id)
             .map(this.extractData)
-            .do(data => console.log('getcapabilities: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }
 
@@ -98,7 +103,7 @@ export class CapabilityService {
 
     private handleError(error: Response): Observable<any> {
         console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
+        return Observable.throw(error.json() || 'Server error');
     }
 
     private extractData(response: Response) {
