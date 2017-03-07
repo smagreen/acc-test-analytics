@@ -9,6 +9,7 @@ import { AttributeService } from '../../attribute/attribute.service';
 import { TestrailService } from '../../testrail/testrail.service';
 
 
+
 @Component({
   selector: 'app-capability-list',
   templateUrl: './capability-list.component.html'

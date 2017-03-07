@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { IComponent, IAttribute, MatrixElement, CapabilityMatrix } from '../../model/capability.model';
 import { CapabilityService } from '../capability.service';
@@ -18,6 +18,13 @@ export class CapabilityMatrixComponent implements OnInit {
   constructor(private router: Router, private capabilityService: CapabilityService ) { }
 
   ngOnInit() {
+
+     this.router.events.subscribe((evt) => {
+            if (!(evt instanceof NavigationEnd)) {
+                return;
+            }
+            window.scrollTo(0, 0);
+        });
 
    this.capabilityService.getCapabilityData().subscribe(
      c => this.matrix = c,

@@ -16,25 +16,34 @@
                     Impact
                     <span>{{ capability?.impactId  | refDataPipe:impact}}</span>
                   </li>
+                  <li class="list-group-item justify-content-between">
+                    Rating:
+                    <h4><span [ngClass]="getBadgeClasses(this.riskService.quickRiskCalculator( capability.frequencyId, capability?.impactId))">{{ this.riskService.quickRiskCalculator( capability.frequencyId, capability?.impactId) }}</span></h4>
+                  </li>
                 </ul>
               </div>
           </div>
           <div class="col">
               <div class="card border-0">
                 <h5 class="card-title">Test</h5>
-                <small *ngIf="!capability.test" class="text-muted">Not mapped</small>
-                <ul *ngIf="capability.test" class="list-group list-group-flush">
+                <small *ngIf="!capability.testSection" class="text-muted">Not mapped</small>
+                <ul *ngIf="capability.testSection" class="list-group list-group-flush">
                   <li class="list-group-item justify-content-between">
-                    <a href="#">Test Cases</a>
-                    <span>{{ capability.test.cases }}</span>
+                    <a href="#" (click)="onTestLinkClick($event)">Test Cases ({{capability.testSection.id}}}</a>
+                    <span>{{ capability.testSection?.testCases.length }}</span>
                   </li>
                   <li class="list-group-item justify-content-between">
                     Executed
-                    <span>{{ capability.test.executed }}</span>
+                    <span>{{ executedTests }}</span>
                   </li>
                   <li class="list-group-item justify-content-between">
                     Failed
-                    <span class="badge badge-danger">{{ capability.test.failed }}</span>
+                    <span>{{ failedTests }}</span>
+                  </li>
+                  <li class="list-group-item justify-content-between">
+                    Pass rate
+                    <span *ngIf="passRate >= 50">{{ passRate | number: '1.0-2'}}%</span>
+                    <h5 *ngIf="passRate < 50"><span class="badge badge-danger" >{{ passRate | number: '1.0-2' }}%</span></h5>
                   </li>
                 </ul>
               </div>
@@ -50,11 +59,15 @@
                   </li>
                   <li class="list-group-item justify-content-between">
                     Severity 2
-                    <span class="badge badge-warning">{{ capability?.defects.type2 }}</span>
+                    <span >{{ capability?.defects.type2 }}</span>
                   </li>
                   <li class="list-group-item justify-content-between">
                     Severity 3
                     <span>{{ capability?.defects.type3 }}</span>
+                  </li>
+                  <li class="list-group-item justify-content-between">
+                    Rating
+                    <h5><span [ngClass]="getBadgeClasses(defectRisk)">{{ defectRisk }}</span></h5>
                   </li>
                 </ul>
               </div>

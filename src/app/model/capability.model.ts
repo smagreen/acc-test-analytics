@@ -8,7 +8,7 @@ export interface ICapability {
     attributeId: string;
     frequencyId: string;
     impactId: string;
-    test?: { externalId?: string, cases: number, executed: number, failed: number };
+    testSection?: ITestSection;
     defects?: {type1: number, type2: number, type3: number};
     code?: {loc: number, churn: number, coverage: number, quality: string };
 }
@@ -23,6 +23,7 @@ export interface IComponent {
     id: string;
     name: string;
     description: string;
+    testSuiteId?: number;
 }
 
 export class MatrixElement implements IIntersection {
@@ -43,17 +44,25 @@ export interface IIntersection {
     capabilities: ICapability[];
 }
 
+export interface ITestResult {
+   id: number;
+   lastRun?: Date;
+   result?: string;
+}
+
 export interface ITestCase {
     id: number;
-    section_Id: number;
     title: string;
+    results?: ITestResult[];
 }
 
 export interface ITestSection {
     id: number;
-    suite_Id: number;
     name: string;
     description: string;
-    display_order: number;
-    depth: number;
+    display_order?: number;
+    depth?: number;
+    testCases?: ITestCase[];
 }
+
+

@@ -55,7 +55,7 @@ import { CapabilityData } from './mock/capability.data';
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    //InMemoryWebApiModule.forRoot(CapabilityData),
+    InMemoryWebApiModule.forRoot(CapabilityData),
   ],
   providers: [
     {
